@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody m_playerRigidBody;
     [SerializeField] private GameObject m_camera;
     [SerializeField] private int m_speed;
-    [SerializeField] private GameObject m_lookAt;
     [SerializeField] private int m_rotateSpeed;
     [SerializeField] private float m_jumpSpeed;
     private bool m_isForwardDown;
