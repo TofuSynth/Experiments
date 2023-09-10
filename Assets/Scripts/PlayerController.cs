@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody m_playerRigidBody;
     [SerializeField] private GameObject m_camera;
     [SerializeField] private int m_speed;
+    [SerializeField] private GameObject m_yRotation;
+    [SerializeField] private GameObject m_zRotation;
+    [SerializeField] private GameObject m_lookAt;
+    [SerializeField] private int m_rotateSpeed;
     private bool m_isForwardDown;
     private bool m_isBackDown;
     private bool m_isRightDown;
@@ -20,6 +24,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
         m_playerRigidBody = this.GetComponent<Rigidbody>();
+        m_camera.transform.Rotate(0,0,0);
     }
 
     void Update()
@@ -27,6 +32,7 @@ public class PlayerController : MonoBehaviour
         ButtonCheck();
         Movement();
         Jumping();
+        Rotation();
     }
 
     void ButtonCheck()
@@ -40,7 +46,7 @@ public class PlayerController : MonoBehaviour
     void Movement()
     {
         Vector3 inputVector = Vector3.zero;
-        this.transform.rotation = m_camera.transform.rotation;
+        //this.transform.rotation = m_camera.transform.rotation;
 
         float forwardMovement = Convert.ToInt32(m_isForwardDown) - Convert.ToInt32(m_isBackDown);
         float sideMovement = Convert.ToInt32(m_isRightDown) - Convert.ToInt32(m_isLeftDown);
@@ -57,5 +63,19 @@ public class PlayerController : MonoBehaviour
     void Jumping()
     {
         
+    }
+
+    void Rotation()
+    {
+        Vector3 angles = this.transform.rotation.eulerAngles;
+
+        float horizontal = (angles.y + 180f) % 360f - 180f;
+        horizontal += Input.GetAxis("Mouse X") * m_rotateSpeed;
+
+        float vertical = (angles.x + 180f) % 360f - 180f;
+        vertical -= Input.GetAxis("Mouse Y") * m_rotateSpeed;
+        vertical = Mathf.Clamp(vertical, -89f, 89f);
+            
+        this.transform.rotation = Quaternion.Euler(new Vector3(vertical, horizontal, angles.z));
     }
 }
