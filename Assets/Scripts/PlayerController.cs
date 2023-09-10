@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody m_playerRigidBody;
+    [SerializeField] private GameObject m_camera;
     [SerializeField] private int m_speed;
     private bool m_isForwardDown;
     private bool m_isBackDown;
@@ -15,6 +16,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
         m_playerRigidBody = this.GetComponent<Rigidbody>();
     }
 
@@ -34,6 +37,7 @@ public class PlayerController : MonoBehaviour
     void Movement()
     {
         Vector3 inputVector = Vector3.zero;
+        this.transform.rotation = m_camera.transform.rotation;
 
         float forwardMovement = Convert.ToInt32(m_isForwardDown) - Convert.ToInt32(m_isBackDown);
         float sideMovement = Convert.ToInt32(m_isRightDown) - Convert.ToInt32(m_isLeftDown);
