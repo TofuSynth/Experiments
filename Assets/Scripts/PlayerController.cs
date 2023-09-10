@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private bool m_isBackDown;
     private bool m_isRightDown;
     private bool m_isLeftDown;
+    private bool m_isJumpDown;
 
     private void Start()
     {
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     {
         ButtonCheck();
         Movement();
+        Jumping();
     }
 
     void ButtonCheck()
@@ -32,7 +34,8 @@ public class PlayerController : MonoBehaviour
         m_isForwardDown = Input.GetKey("w");
         m_isBackDown = Input.GetKey("s");
         m_isRightDown = Input.GetKey("d");
-         m_isLeftDown = Input.GetKey("a");
+        m_isLeftDown = Input.GetKey("a");
+        m_isJumpDown = Input.GetKey("space");
     }
     void Movement()
     {
@@ -46,7 +49,13 @@ public class PlayerController : MonoBehaviour
                        * forwardMovement;
         inputVector += new Vector3(this.transform.right.x, 0, this.transform.right.z).normalized
                        * sideMovement;
+        inputVector = Vector3.Normalize(inputVector);
         
         m_playerRigidBody.AddForce(inputVector * (m_speed * Time.deltaTime));
+    }
+
+    void Jumping()
+    {
+        
     }
 }
