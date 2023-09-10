@@ -63,7 +63,6 @@ public class PlayerController : MonoBehaviour
     {
         float jumping = Convert.ToInt32((m_isJumpDown));
         Vector3 jumpVector = new Vector3(0, 1, 0);
-        //m_playerRigidBody.transform.position += new Vector3(0, jumping * m_jumpSpeed, 0);
         m_playerRigidBody.AddForce(jumpVector * (jumping * m_jumpSpeed));
     }
 
