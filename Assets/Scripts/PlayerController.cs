@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         inputVector += new Vector3(this.transform.right.x, 0, this.transform.right.z).normalized
                        * sideMovement;
         inputVector = Vector3.Normalize(inputVector);
-        
+
         m_playerRigidBody.AddForce(inputVector * (m_speed * Time.deltaTime));
     }
 
