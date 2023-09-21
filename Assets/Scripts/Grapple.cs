@@ -18,14 +18,14 @@ public class Grapple : MonoBehaviour
     }
     private void Start()
     {
-        ButtonCheck();
         RestingPosition = this.transform.position;
-        FireGrapple();
     }
 
     private void Update()
     {
+        ButtonCheck();
         FireGrapple();
+        RetractGrapple();
     }
 
     void FireGrapple()
@@ -34,6 +34,15 @@ public class Grapple : MonoBehaviour
         {
             transform.parent = null;
             m_grapple.AddForce(Vector3.forward * (m_grappleSpeed * Time.deltaTime));
+        }
+    }
+
+    void RetractGrapple()
+    {
+        if (!m_isGrapplePressed && this.transform.position != RestingPosition)
+        {
+            this.transform.parent = m_player.transform;
+            this.transform.position = RestingPosition;
         }
     }
 }
