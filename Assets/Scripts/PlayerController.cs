@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int m_rotateSpeed;
     [SerializeField] private float m_jumpSpeed;
     [SerializeField] private int m_maxNumberOfJumps;
-    protected int m_numberOfJumps;
+    [SerializeField] int m_numberOfJumps;
     private bool m_isForwardDown;
     private bool m_isBackDown;
     private bool m_isRightDown;
@@ -59,7 +59,6 @@ public class PlayerController : MonoBehaviour
         inputVector = Vector3.Normalize(inputVector);
 
         m_playerRigidBody.AddForce(inputVector * (m_speed * Time.deltaTime));
-        
     }
 
     void Jumping()
@@ -71,7 +70,6 @@ public class PlayerController : MonoBehaviour
             m_playerRigidBody.AddForce(jumpVector * (jumping * m_jumpSpeed));
             m_numberOfJumps -= 1;
         }
-        
     }
 
     private void OnTriggerEnter(Collider other)
