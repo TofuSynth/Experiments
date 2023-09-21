@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int m_speed;
     [SerializeField] private int m_rotateSpeed;
     [SerializeField] private float m_jumpSpeed;
-    [SerializeField] private int m_numberOfJumps;
+    [SerializeField] private int m_maxNumberOfJumps;
+    protected int m_numberOfJumps;
     private bool m_isForwardDown;
     private bool m_isBackDown;
     private bool m_isRightDown;
@@ -76,7 +78,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.name == "Floor")
         {
-            m_numberOfJumps = 2;
+            m_numberOfJumps = m_maxNumberOfJumps;
         }
     }
 

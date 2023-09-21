@@ -209,11 +209,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_camera: {fileID: 963194225}
-  m_floor: {fileID: 684302218}
   m_speed: 7500
   m_rotateSpeed: 4
   m_jumpSpeed: 2500
-  m_numberOfJumps: 2
+  m_maxNumberOfJumps: 2
 --- !u!65 &367168285
 BoxCollider:
   m_ObjectHideFlags: 0
