@@ -42,7 +42,7 @@ public class Grapple : MonoBehaviour
         if (!m_isGrapplePressed && this.transform.position != RestingPosition)
         {
             this.transform.parent = m_player.transform;
-            this.transform.position = RestingPosition;
+            this.transform.localPosition = RestingPosition;
         }
     }
 }

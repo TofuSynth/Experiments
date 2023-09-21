@@ -1152,7 +1152,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1548162620
 MonoBehaviour:
@@ -1168,7 +1168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_player: {fileID: 367168282}
   m_grapple: {fileID: 1548162619}
-  m_grappleSpeed: 4000
+  m_grappleSpeed: 100
 --- !u!1 &1850661609
 GameObject:
   m_ObjectHideFlags: 0
