@@ -11,6 +11,7 @@ public class Grapple : MonoBehaviour
     [SerializeField] private int m_grappleSpeed;
     private Vector3 RestingPosition;
     private bool m_isGrapplePressed;
+    private SphereCollider m_grappleCollider;
 
     void ButtonCheck()
     {
@@ -18,6 +19,7 @@ public class Grapple : MonoBehaviour
     }
     private void Start()
     {
+        m_grappleCollider = m_grapple.GetComponent<SphereCollider>();
         RestingPosition = this.transform.position;
     }
 
@@ -33,7 +35,8 @@ public class Grapple : MonoBehaviour
         if (m_isGrapplePressed)
         {
             transform.parent = null;
-            m_grapple.AddForce(Vector3.forward * (m_grappleSpeed * Time.deltaTime));
+            m_grappleCollider.enabled = true;
+            m_grapple.AddForce(m_player.transform.forward * (m_grappleSpeed * Time.deltaTime));
         }
     }
 
@@ -43,6 +46,8 @@ public class Grapple : MonoBehaviour
         {
             this.transform.parent = m_player.transform;
             this.transform.localPosition = RestingPosition;
+            m_grappleCollider.enabled = false;
+            m_grapple.velocity = Vector3.zero;
         }
     }
 }
