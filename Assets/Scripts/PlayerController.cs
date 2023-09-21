@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int m_speed;
     [SerializeField] private int m_rotateSpeed;
     [SerializeField] private float m_jumpSpeed;
+    [SerializeField] private int m_numberOfJumps;
     private bool m_isForwardDown;
     private bool m_isBackDown;
     private bool m_isRightDown;
@@ -61,9 +62,22 @@ public class PlayerController : MonoBehaviour
 
     void Jumping()
     {
-        float jumping = Convert.ToInt32((m_isJumpDown));
         Vector3 jumpVector = new Vector3(0, 1, 0);
-        m_playerRigidBody.AddForce(jumpVector * (jumping * m_jumpSpeed));
+        if (m_numberOfJumps > 0 && m_isJumpDown)
+        {
+            float jumping = Convert.ToInt32(m_isJumpDown);
+            m_playerRigidBody.AddForce(jumpVector * (jumping * m_jumpSpeed));
+            m_numberOfJumps -= 1;
+        }
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Floor")
+        {
+            m_numberOfJumps = 2;
+        }
     }
 
     void Rotation()
