@@ -1268,7 +1268,7 @@ MonoBehaviour:
   m_grapple: {fileID: 1548162619}
   m_grappleDirection: {fileID: 1256061116}
   m_grappleSpeed: 100
-  m_playerGrappleSpeed: 30
+  m_playerGrappleSpeed: 25
 --- !u!1 &1850661609
 GameObject:
   m_ObjectHideFlags: 0
