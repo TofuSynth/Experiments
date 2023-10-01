@@ -6,14 +6,18 @@ using UnityEngine;
 public class Grapple : MonoBehaviour
 {
     [SerializeField] private GameObject m_player;
+    [SerializeField] private Rigidbody m_playerRigidBody;
     [SerializeField] private Rigidbody m_grapple;
     [SerializeField] private GameObject m_grappleDirection;
     [SerializeField] private int m_grappleSpeed;
+    [SerializeField] private int m_playerGrappleSpeed;
     private Vector3 RestingPosition;
     private bool m_isGrapplePressed;
     private bool m_isGrappleTargeted;
     private bool m_isGrappleLifted;
     private bool m_isGrappleExtended = false;
+    private bool m_isGrappleConnected = false;
+    private bool m_isPlayerGrapplingToTarget = false;
     private SphereCollider m_grappleCollider;
     private Vector3 m_grappleTarget;
 
@@ -34,6 +38,7 @@ public class Grapple : MonoBehaviour
         ButtonCheck();
         FireGrapple();
         RetractGrapple();
+        GrappleToTarget();
     }
 
     void FireGrapple()
@@ -48,7 +53,10 @@ public class Grapple : MonoBehaviour
             float grappleSpeed = m_grappleSpeed * Time.deltaTime;
             transform.parent = null;
             m_grappleCollider.enabled = true;
-            m_grapple.position = Vector3.MoveTowards(m_grapple.position, m_grappleTarget, grappleSpeed);
+            if (!m_isPlayerGrapplingToTarget)
+            {
+                m_grapple.position = Vector3.MoveTowards(m_grapple.position, m_grappleTarget, grappleSpeed);
+            }
             if (Vector3.Distance(m_grapple.position, m_grappleTarget) < 0.001f)
             {
                 m_isGrappleExtended = true;
@@ -57,7 +65,9 @@ public class Grapple : MonoBehaviour
         }
         else if (m_isGrappleLifted)
         {
+            m_isGrappleConnected = false;
             m_isGrappleExtended = false;
+            m_isPlayerGrapplingToTarget = false;
         }
         else
         {
@@ -75,9 +85,33 @@ public class Grapple : MonoBehaviour
 
     void ReturnGrapple()
     {
+        m_isGrappleConnected = false;
         this.transform.parent = m_player.transform;
         this.transform.localPosition = RestingPosition;
         m_grappleCollider.enabled = false;
         m_grapple.velocity = Vector3.zero;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "GrapplePoint")
+        {
+            m_isGrappleConnected = true;
+        }
+    }
+
+    void GrappleToTarget()
+    {
+        if (m_isGrappleConnected)
+        {
+            m_isPlayerGrapplingToTarget = true;
+            float playerGrappleSpeed = m_playerGrappleSpeed * Time.deltaTime;
+            m_playerRigidBody.position = Vector3.MoveTowards(m_playerRigidBody.position, this.transform.position,
+                playerGrappleSpeed);
+            if (Vector3.Distance(m_playerRigidBody.position, this.transform.position) < 0.001f)
+            {
+                ReturnGrapple();
+            }
+        }
     }
 }
