@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Floor")
+        if (other.gameObject.tag == "floor")
         {
             m_numberOfJumps = m_maxNumberOfJumps;
         }

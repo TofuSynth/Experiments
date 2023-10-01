@@ -23,9 +23,9 @@ public class Grapple : MonoBehaviour
 
     void ButtonCheck()
     {
-        m_isGrapplePressed = Input.GetMouseButton(0);
-        m_isGrappleLifted = Input.GetMouseButtonUp(0);
-        m_isGrappleTargeted = Input.GetMouseButtonDown(0);
+        m_isGrapplePressed = Input.GetKey(KeyCode.E);
+        m_isGrappleLifted = Input.GetKeyUp(KeyCode.E);
+        m_isGrappleTargeted = Input.GetKeyDown(KeyCode.E);
     }
     private void Start()
     {
@@ -37,7 +37,6 @@ public class Grapple : MonoBehaviour
     {
         ButtonCheck();
         FireGrapple();
-        RetractGrapple();
         GrappleToTarget();
     }
 
@@ -53,11 +52,9 @@ public class Grapple : MonoBehaviour
             float grappleSpeed = m_grappleSpeed * Time.deltaTime;
             transform.parent = null;
             m_grappleCollider.enabled = true;
-            if (!m_isPlayerGrapplingToTarget)
-            {
-                m_grapple.position = Vector3.MoveTowards(m_grapple.position, m_grappleTarget, grappleSpeed);
-            }
-            if (Vector3.Distance(m_grapple.position, m_grappleTarget) < 0.001f)
+            m_grapple.position = Vector3.MoveTowards(m_grapple.position, m_grappleTarget, grappleSpeed);
+            
+            if (Vector3.Distance(m_grapple.position, m_grappleTarget) < 0.001f && !m_isPlayerGrapplingToTarget)
             {
                 m_isGrappleExtended = true;
                 ReturnGrapple();
@@ -74,15 +71,7 @@ public class Grapple : MonoBehaviour
             ReturnGrapple();
         }
     }
-
-    void RetractGrapple()
-    {
-        if (!m_isGrapplePressed && this.transform.position != RestingPosition)
-        {
-            ReturnGrapple();
-        }
-    }
-
+    
     void ReturnGrapple()
     {
         m_isGrappleConnected = false;
@@ -92,7 +81,7 @@ public class Grapple : MonoBehaviour
         m_grapple.velocity = Vector3.zero;
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "GrapplePoint")
         {
@@ -105,11 +94,13 @@ public class Grapple : MonoBehaviour
         if (m_isGrappleConnected)
         {
             m_isPlayerGrapplingToTarget = true;
+            m_grappleTarget = this.transform.position;
             float playerGrappleSpeed = m_playerGrappleSpeed * Time.deltaTime;
             m_playerRigidBody.position = Vector3.MoveTowards(m_playerRigidBody.position, this.transform.position,
                 playerGrappleSpeed);
             if (Vector3.Distance(m_playerRigidBody.position, this.transform.position) < 0.001f)
             {
+                m_isPlayerGrapplingToTarget = false;
                 ReturnGrapple();
             }
         }
