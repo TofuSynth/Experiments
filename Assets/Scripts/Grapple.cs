@@ -12,14 +12,17 @@ public class Grapple : MonoBehaviour
     [SerializeField] private int m_grappleSpeed;
     private Vector3 RestingPosition;
     private bool m_isGrapplePressed;
+    private bool m_isGrappleTargeted;
     private bool m_isGrappleLifted;
     private bool m_isGrappleExtended = false;
     private SphereCollider m_grappleCollider;
+    private Vector3 grappleTarget;
 
     void ButtonCheck()
     {
         m_isGrapplePressed = Input.GetMouseButton(0);
         m_isGrappleLifted = Input.GetMouseButtonUp(0);
+        m_isGrappleTargeted = Input.GetMouseButtonDown(0);
     }
     private void Start()
     {
@@ -36,9 +39,13 @@ public class Grapple : MonoBehaviour
 
     void FireGrapple()
     {
+        if (m_isGrappleTargeted)
+        {
+            grappleTarget = m_grappleDirection.transform.position;
+        }
+        
         if (m_isGrapplePressed && !m_isGrappleExtended)
         {
-            Vector3 grappleTarget = m_grappleDirection.transform.position;
             float grappleSpeed = m_grappleSpeed * Time.deltaTime;
             transform.parent = null;
             m_grappleCollider.enabled = true;
