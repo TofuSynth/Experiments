@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Grapple : MonoBehaviour
 {
-
     [SerializeField] private GameObject m_player;
     [SerializeField] private Rigidbody m_grapple;
     [SerializeField] private GameObject m_grappleDirection;
@@ -16,7 +15,7 @@ public class Grapple : MonoBehaviour
     private bool m_isGrappleLifted;
     private bool m_isGrappleExtended = false;
     private SphereCollider m_grappleCollider;
-    private Vector3 grappleTarget;
+    private Vector3 m_grappleTarget;
 
     void ButtonCheck()
     {
@@ -41,7 +40,7 @@ public class Grapple : MonoBehaviour
     {
         if (m_isGrappleTargeted)
         {
-            grappleTarget = m_grappleDirection.transform.position;
+            m_grappleTarget = m_grappleDirection.transform.position;
         }
         
         if (m_isGrapplePressed && !m_isGrappleExtended)
@@ -49,8 +48,8 @@ public class Grapple : MonoBehaviour
             float grappleSpeed = m_grappleSpeed * Time.deltaTime;
             transform.parent = null;
             m_grappleCollider.enabled = true;
-            m_grapple.position = Vector3.MoveTowards(m_grapple.position, grappleTarget, grappleSpeed);
-            if (Vector3.Distance(m_grapple.position, grappleTarget) < 0.001f)
+            m_grapple.position = Vector3.MoveTowards(m_grapple.position, m_grappleTarget, grappleSpeed);
+            if (Vector3.Distance(m_grapple.position, m_grappleTarget) < 0.001f)
             {
                 m_isGrappleExtended = true;
                 ReturnGrapple();
@@ -64,7 +63,6 @@ public class Grapple : MonoBehaviour
         {
             ReturnGrapple();
         }
-        
     }
 
     void RetractGrapple()
