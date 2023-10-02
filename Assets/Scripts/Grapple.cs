@@ -55,10 +55,12 @@ public class Grapple : MonoBehaviour
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position, m_grappleDirection.transform.position, out hit,
-                    Vector3.Distance(m_grappleDirection.transform.position, transform.position)))
+                    grappleSpeed))
             {
                 if (!GrapplePointCollisionCheck(hit))
                 {
+                    m_isGrappleExtended = true;
+                    ReturnGrapple();
                     return;
                 }
             }
@@ -99,21 +101,25 @@ public class Grapple : MonoBehaviour
         m_grappleCollider.enabled = false;
         m_grapple.velocity = Vector3.zero;
     }
-    /*
+    
      private void OnTriggerEnter(Collider other)
      {
-         if (other.gameObject.tag != "GrapplePoint")
+         if (other.gameObject.tag == "GrapplePoint")
          {
-             ReturnGrapple();
+             m_isGrappleConnected = true;
          }
      }
-     */
+     
     private bool GrapplePointCollisionCheck(RaycastHit hit)
     {
         if (hit.collider.tag == "GrapplePoint")
         {
             m_grappleTarget = hit.point;
-            m_isGrappleConnected = true;
+            return true;
+        }
+
+        if (hit.collider.name == "Grapple")
+        {
             return true;
         }
         return false;
