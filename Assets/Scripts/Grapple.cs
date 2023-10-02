@@ -64,21 +64,24 @@ public class Grapple : MonoBehaviour
                     return;
                 }
             }
-            
-            if (Vector3.Distance(m_grapple.position, m_grappleTarget) > grappleSpeed)
+
+            if (!m_isGrappleConnected)
             {
-                m_grapple.position = Vector3.MoveTowards(m_grapple.position, m_grappleTarget, grappleSpeed);
-            }
-            else
-            {
-                m_grapple.position = Vector3.MoveTowards(m_grapple.position, m_grappleTarget,
-                    Vector3.Distance(m_grapple.position, m_grappleTarget));
-            }
-            
-            if (Vector3.Distance(m_grapple.position, m_grappleTarget) < 0.001f && !m_isPlayerGrapplingToTarget)
-            {
-                m_isGrappleExtended = true;
-                ReturnGrapple();
+                if (Vector3.Distance(m_grapple.position, m_grappleTarget) > grappleSpeed)
+                {
+                    m_grapple.position = Vector3.MoveTowards(m_grapple.position, m_grappleTarget, grappleSpeed);
+                }
+                else
+                {
+                    m_grapple.position = Vector3.MoveTowards(m_grapple.position, m_grappleTarget,
+                        Vector3.Distance(m_grapple.position, m_grappleTarget));
+                }
+
+                if (Vector3.Distance(m_grapple.position, m_grappleTarget) < 0.001f && !m_isPlayerGrapplingToTarget)
+                {
+                    m_isGrappleExtended = true;
+                    ReturnGrapple();
+                }
             }
         }
         else if (m_isGrappleLifted)
@@ -115,6 +118,7 @@ public class Grapple : MonoBehaviour
         if (hit.collider.tag == "GrapplePoint")
         {
             m_grappleTarget = hit.point;
+            m_isGrappleConnected = true;
             return true;
         }
 
