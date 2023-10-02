@@ -39,7 +39,7 @@ public class Grapple : MonoBehaviour
         FireGrapple();
         GrappleToTarget();
     }
-
+    
     void FireGrapple()
     {
         if (m_isGrappleTargeted)
