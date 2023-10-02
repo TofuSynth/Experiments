@@ -133,7 +133,6 @@ public class Grapple : MonoBehaviour
         if (m_isGrappleConnected)
         {
             m_isPlayerGrapplingToTarget = true;
-            //m_grappleTarget = this.transform.position;
             float playerGrappleSpeed = m_playerGrappleSpeed * Time.deltaTime;
             m_playerRigidBody.position = Vector3.MoveTowards(m_playerRigidBody.position, this.transform.position,
                 playerGrappleSpeed);
