@@ -52,7 +52,23 @@ public class Grapple : MonoBehaviour
             float grappleSpeed = m_grappleSpeed * Time.deltaTime;
             transform.parent = null;
             m_grappleCollider.enabled = true;
-            m_grapple.position = Vector3.MoveTowards(m_grapple.position, m_grappleTarget, grappleSpeed);
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, m_grappleDirection.transform.position, out hit,
+                    Vector3.Distance(m_grappleDirection.transform.position, transform.position)))
+            {
+                GrapplePointCollisionCheck(hit);
+            }
+            
+            if (Vector3.Distance(m_grapple.position, m_grappleTarget) > grappleSpeed)
+            {
+                m_grapple.position = Vector3.MoveTowards(m_grapple.position, m_grappleTarget, grappleSpeed);
+            }
+            else
+            {
+                m_grapple.position = Vector3.MoveTowards(m_grapple.position, m_grappleTarget,
+                    Vector3.Distance(m_grapple.position, m_grappleTarget));
+            }
             
             if (Vector3.Distance(m_grapple.position, m_grappleTarget) < 0.001f && !m_isPlayerGrapplingToTarget)
             {
@@ -80,21 +96,29 @@ public class Grapple : MonoBehaviour
         m_grappleCollider.enabled = false;
         m_grapple.velocity = Vector3.zero;
     }
-
-    private void OnTriggerEnter(Collider other)
+    /*
+     private void OnTriggerEnter(Collider other)
+     {
+         if (other.gameObject.tag == "GrapplePoint")
+         {
+             m_isGrappleConnected = true;
+         }
+     }
+     */
+    private void GrapplePointCollisionCheck(RaycastHit hit)
     {
-        if (other.gameObject.tag == "GrapplePoint")
+        if (hit.collider.tag == "GrapplePoint")
         {
             m_isGrappleConnected = true;
+            m_grappleTarget = hit.transform.position;
         }
     }
-
     void GrappleToTarget()
     {
         if (m_isGrappleConnected)
         {
             m_isPlayerGrapplingToTarget = true;
-            m_grappleTarget = this.transform.position;
+            //m_grappleTarget = this.transform.position;
             float playerGrappleSpeed = m_playerGrappleSpeed * Time.deltaTime;
             m_playerRigidBody.position = Vector3.MoveTowards(m_playerRigidBody.position, this.transform.position,
                 playerGrappleSpeed);
