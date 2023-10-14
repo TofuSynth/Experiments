@@ -103,6 +103,14 @@ public class Grapple : MonoBehaviour
 
     void RenderGrappleLine()
     {
+        if (m_isGrapplePressed)
+        {
+            m_grappleLine.enabled = true;
+        }
+        else
+        {
+            m_grappleLine.enabled = false;
+        }
         m_grappleLine.SetPosition(0, m_grappleLineOrigin.transform.position);
         m_grappleLine.SetPosition(1, this.transform.position);
     }
