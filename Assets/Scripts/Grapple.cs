@@ -2,16 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Grapple : MonoBehaviour
 {
     [SerializeField] private GameObject m_player;
+    [SerializeField] private GameObject m_grappleLineOrigin;
     [SerializeField] private Rigidbody m_playerRigidBody;
-    [SerializeField] private Rigidbody m_grapple;
+    [SerializeField] private Rigidbody m_grappleRigidBody;
     [SerializeField] private GameObject m_grappleDirection;
     [SerializeField] private int m_grappleSpeed;
     [SerializeField] private int m_playerGrappleSpeed;
-    private Vector3 RestingPosition;
+    [SerializeField] LineRenderer m_grappleLine;
+    private Vector3 m_restingPosition;
     private bool m_isGrapplePressed;
     private bool m_isGrappleTargeted;
     private bool m_isGrappleLifted;
@@ -29,12 +32,14 @@ public class Grapple : MonoBehaviour
     }
     private void Start()
     {
-        m_grappleCollider = m_grapple.GetComponent<SphereCollider>();
-        RestingPosition = this.transform.position;
+        m_grappleLine.positionCount = 2;
+        m_grappleCollider = m_grappleRigidBody.GetComponent<SphereCollider>();
+        m_restingPosition = this.transform.position;
     }
 
     private void Update()
     {
+        RenderGrappleLine();
         ButtonCheck();
         FireGrapple();
         GrappleToTarget();
@@ -67,17 +72,17 @@ public class Grapple : MonoBehaviour
 
             if (!m_isGrappleConnected)
             {
-                if (Vector3.Distance(m_grapple.position, m_grappleTarget) > grappleSpeed)
+                if (Vector3.Distance(m_grappleRigidBody.position, m_grappleTarget) > grappleSpeed)
                 {
-                    m_grapple.position = Vector3.MoveTowards(m_grapple.position, m_grappleTarget, grappleSpeed);
+                    m_grappleRigidBody.position = Vector3.MoveTowards(m_grappleRigidBody.position, m_grappleTarget, grappleSpeed);
                 }
                 else
                 {
-                    m_grapple.position = Vector3.MoveTowards(m_grapple.position, m_grappleTarget,
-                        Vector3.Distance(m_grapple.position, m_grappleTarget));
+                    m_grappleRigidBody.position = Vector3.MoveTowards(m_grappleRigidBody.position, m_grappleTarget,
+                        Vector3.Distance(m_grappleRigidBody.position, m_grappleTarget));
                 }
 
-                if (Vector3.Distance(m_grapple.position, m_grappleTarget) < 0.001f && !m_isPlayerGrapplingToTarget)
+                if (Vector3.Distance(m_grappleRigidBody.position, m_grappleTarget) < 0.001f && !m_isPlayerGrapplingToTarget)
                 {
                     m_isGrappleExtended = true;
                     ReturnGrapple();
@@ -95,14 +100,20 @@ public class Grapple : MonoBehaviour
             ReturnGrapple();
         }
     }
+
+    void RenderGrappleLine()
+    {
+        m_grappleLine.SetPosition(0, m_grappleLineOrigin.transform.position);
+        m_grappleLine.SetPosition(1, this.transform.position);
+    }
     
     void ReturnGrapple()
     {
         m_isGrappleConnected = false;
         this.transform.parent = m_player.transform;
-        this.transform.localPosition = RestingPosition;
+        this.transform.localPosition = m_restingPosition;
         m_grappleCollider.enabled = false;
-        m_grapple.velocity = Vector3.zero;
+        m_grappleRigidBody.velocity = Vector3.zero;
     }
     
      private void OnTriggerEnter(Collider other)
