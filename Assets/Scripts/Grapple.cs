@@ -106,13 +106,13 @@ public class Grapple : MonoBehaviour
         if (m_isGrapplePressed)
         {
             m_grappleLine.enabled = true;
+            m_grappleLine.SetPosition(0, m_grappleLineOrigin.transform.position);
+            m_grappleLine.SetPosition(1, this.transform.position);
         }
         else
         {
             m_grappleLine.enabled = false;
         }
-        m_grappleLine.SetPosition(0, m_grappleLineOrigin.transform.position);
-        m_grappleLine.SetPosition(1, this.transform.position);
     }
     
     void ReturnGrapple()
