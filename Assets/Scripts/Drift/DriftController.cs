@@ -6,9 +6,9 @@ using UnityEngine.UIElements;
 public class DriftController : MonoBehaviour
 {
     [SerializeField] private Rigidbody m_playerRigidBody;
-    [SerializeField] private int m_currentSpeed;
-    [SerializeField] private int m_maxSpeed;
-    [SerializeField] private int m_acceleration;
+    [SerializeField] private float m_currentSpeed;
+    [SerializeField] private float m_maxSpeed;
+    [SerializeField] private float m_acceleration;
     void Update()
     {
         Rotate();
@@ -22,12 +22,12 @@ public class DriftController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             turnRotation -= 90;
-            m_currentSpeed = 0;
+            m_currentSpeed = m_currentSpeed / 2;
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             turnRotation += 90;
-            m_currentSpeed = 0;
+            m_currentSpeed = m_currentSpeed / 2;
         }
 
         this.transform.rotation = Quaternion.Euler(new Vector3(angles.x, turnRotation, angles.z));
@@ -35,7 +35,7 @@ public class DriftController : MonoBehaviour
 
     void Acceleration()
     {
-        m_currentSpeed += m_acceleration;
+        m_currentSpeed += m_acceleration * Time.deltaTime;
 
         m_currentSpeed = Mathf.Clamp(m_currentSpeed, 0, m_maxSpeed);
         
