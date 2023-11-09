@@ -1705,8 +1705,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_playerRigidBody: {fileID: 1239290812}
   m_currentSpeed: 0
-  m_maxSpeed: 5
-  m_acceleration: 2
+  m_maxSpeed: 5000
+  m_acceleration: 500
 --- !u!65 &1239290808
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1793,7 +1793,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1239290806}
   serializedVersion: 2
-  m_Mass: 10
+  m_Mass: 8
   m_Drag: 0
   m_AngularDrag: 0.01
   m_UseGravity: 1
@@ -2596,7 +2596,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686699672}
-  m_LocalRotation: {x: 0.4461844, y: -0.30635235, z: 0.16581245, w: 0.8243628}
+  m_LocalRotation: {x: 0.44618437, y: -0.30635232, z: 0.16581242, w: 0.8243629}
   m_LocalPosition: {x: 40.477184, y: 16.06, z: -11.264399}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2779,7 +2779,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1843275581}
-  m_LocalRotation: {x: 0.4461844, y: -0.30635235, z: 0.16581245, w: 0.8243628}
+  m_LocalRotation: {x: 0.44618437, y: -0.30635232, z: 0.16581242, w: 0.8243629}
   m_LocalPosition: {x: 40.477184, y: 16.06, z: -11.264399}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

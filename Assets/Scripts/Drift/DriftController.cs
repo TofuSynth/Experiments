@@ -22,12 +22,12 @@ public class DriftController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             turnRotation -= 90;
-           // m_currentSpeed = 0;
+            m_currentSpeed = 0;
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             turnRotation += 90;
-            //m_currentSpeed = 0;
+            m_currentSpeed = 0;
         }
 
         this.transform.rotation = Quaternion.Euler(new Vector3(angles.x, turnRotation, angles.z));
@@ -39,6 +39,6 @@ public class DriftController : MonoBehaviour
 
         m_currentSpeed = Mathf.Clamp(m_currentSpeed, 0, m_maxSpeed);
         
-        m_playerRigidBody.AddForce(this.transform.forward * m_currentSpeed);
+        m_playerRigidBody.AddForce(this.transform.forward * (m_currentSpeed * Time.deltaTime));
     }
 }
