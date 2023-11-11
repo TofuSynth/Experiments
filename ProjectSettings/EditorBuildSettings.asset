@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/StartMenu.unity
+    guid: 208c3bbb827311145b9341fc4220d017
+  - enabled: 1
+    path: Assets/Scenes/GrappleFPS.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Drift.unity
+    guid: 5ab021f3127cf1d49971862eb3011397
+  - enabled: 1
+    path: Assets/Scenes/3Cubes.unity
+    guid: 2265296fd308912408a8f63d0a0b1c72
   m_configObjects: {}
