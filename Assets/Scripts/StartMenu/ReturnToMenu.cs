@@ -25,6 +25,7 @@ public class ReturnToMenu : MonoBehaviour
             SceneManager.LoadScene("StartMenu");
             Destroy(this.gameObject);
             Cursor.visible = true;
+            Application.targetFrameRate = -1;
         }
     }
 }
