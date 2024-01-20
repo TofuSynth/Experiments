@@ -91,7 +91,7 @@ public class PlayerTiming : MonoBehaviour
     
     void MoveTimingBar()
     {
-        m_timingPosition.x += m_speed * m_movementDirection;
+        m_timingPosition.x += m_speed * m_movementDirection * Time.deltaTime;
         this.transform.localPosition = m_timingPosition;
     }
     

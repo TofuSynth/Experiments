@@ -518,7 +518,7 @@ MonoBehaviour:
   m_yellowPoints: 250
   m_orangePoints: 100
   m_redPoints: 50
-  m_speed: 12
+  m_speed: 1000
   m_scoreText: {fileID: 890908325}
 --- !u!1 &1330172713
 GameObject:
