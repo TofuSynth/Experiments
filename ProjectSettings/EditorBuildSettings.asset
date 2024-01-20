@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/3Cubes.unity
     guid: 2265296fd308912408a8f63d0a0b1c72
+  - enabled: 1
+    path: Assets/Scenes/Timing.unity
+    guid: 56eb8fd1803abb343b7c67ad888c62a5
   m_configObjects: {}
