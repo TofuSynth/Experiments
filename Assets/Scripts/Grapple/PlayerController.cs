@@ -31,9 +31,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         ButtonCheck();
+        Rotation();
+    }
+
+    private void FixedUpdate()
+    {
         Movement();
         Jumping();
-        Rotation();
     }
 
     void ButtonCheck()

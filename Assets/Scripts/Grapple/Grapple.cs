@@ -39,12 +39,16 @@ public class Grapple : MonoBehaviour
 
     private void Update()
     {
-        RenderGrappleLine();
         ButtonCheck();
+        RenderGrappleLine();
+    }
+
+    private void FixedUpdate()
+    {
         FireGrapple();
         GrappleToTarget();
     }
-    
+
     void FireGrapple()
     {
         if (m_isGrappleTargeted)
