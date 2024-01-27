@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private bool m_isRightDown;
     private bool m_isLeftDown;
     private bool m_isJumpDown;
+    private bool m_doJump;
 
     private void Start()
     {
@@ -31,11 +32,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         ButtonCheck();
+        Rotation();
     }
 
     private void FixedUpdate()
     {
-        Rotation();
         Movement();
         Jumping();
     }
@@ -47,6 +48,11 @@ public class PlayerController : MonoBehaviour
         m_isRightDown = Input.GetKey("d");
         m_isLeftDown = Input.GetKey("a");
         m_isJumpDown = Input.GetKeyDown("space");
+
+        if (m_isJumpDown)
+        {
+            m_doJump = true;
+        }
     }
     void Movement()
     {
@@ -68,11 +74,12 @@ public class PlayerController : MonoBehaviour
     void Jumping()
     {
         Vector3 jumpVector = new Vector3(0, 1, 0);
-        if (m_numberOfJumps > 0 && m_isJumpDown)
+        if (m_numberOfJumps > 0 && m_doJump)
         {
             float jumping = Convert.ToInt32(m_isJumpDown);
-            m_playerRigidBody.AddForce(jumpVector * (jumping * m_jumpSpeed));
+            m_playerRigidBody.AddForce(jumpVector *  m_jumpSpeed);
             m_numberOfJumps -= 1;
+            m_doJump = false;
         }
     }
 
