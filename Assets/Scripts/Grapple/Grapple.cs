@@ -40,11 +40,11 @@ public class Grapple : MonoBehaviour
     private void Update()
     {
         ButtonCheck();
-        RenderGrappleLine();
     }
 
     private void FixedUpdate()
     {
+        RenderGrappleLine();
         FireGrapple();
         GrappleToTarget();
     }

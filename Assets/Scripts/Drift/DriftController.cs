@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,10 @@ public class DriftController : MonoBehaviour
     void Update()
     {
         Rotate();
+    }
+
+    private void FixedUpdate()
+    {
         Acceleration();
     }
 

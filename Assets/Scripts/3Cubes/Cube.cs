@@ -20,8 +20,12 @@ public class Cube : MonoBehaviour
     void Update()
     {
         ButtonCheck();
-        Movement();
         SelectThisCube();
+    }
+
+    private void FixedUpdate()
+    {
+        Movement();
     }
 
     void ButtonCheck()

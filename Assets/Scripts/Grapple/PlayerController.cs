@@ -31,11 +31,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         ButtonCheck();
-        Rotation();
     }
 
     private void FixedUpdate()
     {
+        Rotation();
         Movement();
         Jumping();
     }
