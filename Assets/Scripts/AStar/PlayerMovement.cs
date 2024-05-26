@@ -29,10 +29,10 @@ public class PlayerMovement : MonoBehaviour
 
     void ButtonCheck()
     {
-        m_isForwardDown = Input.GetKey("w");
-        m_isBackDown = Input.GetKey("s");
-        m_isRightDown = Input.GetKey("d");
-        m_isLeftDown = Input.GetKey("a");
+        m_isForwardDown = Input.GetKey(KeyCode.W);
+        m_isBackDown = Input.GetKey(KeyCode.S);
+        m_isRightDown = Input.GetKey(KeyCode.D);
+        m_isLeftDown = Input.GetKey(KeyCode.A);
     }
 
     void Movement()

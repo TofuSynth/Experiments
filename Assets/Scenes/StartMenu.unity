@@ -547,7 +547,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d49d15d17bebf84d8e926ad1ee5010e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_projectDescription: Implementing A* pathfinding
+  m_projectDescription: Utilizing basic Navmesh for pathfinding. WASD to move, Space
+    to toggle pathfinding.
   m_descriptionText: {fileID: 1041729638}
 --- !u!114 &214414774
 MonoBehaviour:
@@ -2621,7 +2622,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: AStar
+  m_text: NavMesh
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
