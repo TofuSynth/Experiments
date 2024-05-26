@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Timing.unity
     guid: 56eb8fd1803abb343b7c67ad888c62a5
+  - enabled: 1
+    path: Assets/Scenes/AStar.unity
+    guid: 828f888e2571e7447a0d2c8db9152e28
   m_configObjects: {}
